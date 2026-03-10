@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 6%;
+    --foreground: 180 10% 92%;
+    --card: 220 18% 10%;
+    --card-foreground: 180 10% 92%;
+    --primary: 172 66% 45%;
+    --primary-foreground: 220 20% 6%;
+    --muted: 220 14% 18%;
+    --muted-foreground: 180 8% 60%;
+    --accent: 172 66% 45%;
+    --border: 220 14% 22%;
+    --input: 220 14% 18%;
+    --radius: 0.6rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Leaflet map overrides */
+  .leaflet-container {
+    font-family: inherit;
+    background: hsl(var(--card));
+  }
+
+  .leaflet-popup-content-wrapper {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}
