@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ApiCache {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  source      String
+  createdAt   DateTime @default(now())
+
+  @@index([key])
+}
+
+model LocationSearch {
+  id           String   @id @default(cuid())
+  query        String
+  displayName  String
+  lat          Float
+  lon          Float
+  aqiData      String?
+  weatherData  String?
+  fireData     String?
+  trafficData  String?
+  createdAt    DateTime @default(now())
+
+  @@index([query])
+  @@index([createdAt])
+}
+
+model AirQualityRecord {
+  id          String   @id @default(cuid())
+  locationId  String?
+  lat         Float
+  lon         Float
+  area        String?
+  pm25        Float?
+  pm10        Float?
+  no2         Float?
+  o3          Float?
+  so2         Float?
+  co          Float?
+  nh3         Float?
+  aqi         Int?
+  temp        Float?
+  humidity    Float?
+  pressure    Float?
+  windSpeed   Float?
+  uvIndex     Float?
+  source      String?
+  timestamp   DateTime @default(now())
+
+  @@index([timestamp])
+  @@index([area])
+  @@index([lat, lon])
+}
