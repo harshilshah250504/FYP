@@ -10,7 +10,8 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
-    "export:csv": "node scripts/export-to-csv.js"
+    "export:csv": "node scripts/export-to-csv.js",
+    "record:sensor": "node scripts/record-sensor-api.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

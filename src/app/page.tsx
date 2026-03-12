@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { ResultCard } from "@/components/ResultCard";
 import MapView from "@/components/MapView";
-import { Wind, BarChart3, Layers, TrendingUp } from "lucide-react";
+import { Wind, BarChart3, Layers, TrendingUp, Download } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -89,6 +89,40 @@ export default function Home() {
 
       {/* Results */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-6 pb-16">
+        {/* Download CSV - Direct from UI */}
+        <div className="mb-8 rounded-xl bg-[hsl(var(--card))] border border-[hsl(var(--border))] p-5">
+          <h3 className="flex items-center gap-2 font-medium mb-3">
+            <Download className="w-5 h-5" />
+            Download Data (CSV)
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            All data is fetched live. Searches are stored in the database (prisma/dev.db). Download CSV with actual records.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="/api/download/csv?file=sensor_data"
+              download="sensor_data.csv"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium hover:opacity-90"
+            >
+              <Download className="w-4 h-4" /> Sensor Data
+            </a>
+            <a
+              href="/api/download/csv?file=air-quality-records"
+              download="air-quality-records.csv"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium hover:opacity-90"
+            >
+              <Download className="w-4 h-4" /> Air Quality Records
+            </a>
+            <a
+              href="/api/download/csv?file=location-searches"
+              download="location-searches.csv"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-medium hover:opacity-90"
+            >
+              <Download className="w-4 h-4" /> Location Searches
+            </a>
+          </div>
+        </div>
+
         {error && (
           <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
             {error}
