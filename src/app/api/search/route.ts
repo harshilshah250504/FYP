@@ -15,6 +15,7 @@ import { generateHealthAdvisories, type AgeGroup, type HealthCondition } from "@
 import { classifyPollutionCause } from "@/lib/pollution-causes";
 import { prisma } from "@/lib/db";
 import { getUserFromRequest } from "@/lib/auth";
+import { sendSms } from "@/lib/sms";
 
 export const dynamic = "force-dynamic";
 
@@ -191,6 +192,39 @@ export async function GET(req: NextRequest) {
         source: primarySource,
       },
     });
+
+    // Handle TrackedLocation and Alerts
+    await prisma.trackedLocation.upsert({
+      where: {
+        userId_lat_lon: {
+          userId: user.id,
+          lat,
+          lon,
+        },
+      },
+      update: {
+        query: q,
+        displayName,
+      },
+      create: {
+        userId: user.id,
+        query: q,
+        displayName,
+        lat,
+        lon,
+      },
+    });
+
+    if (user.phoneNumber && primaryAqi && primaryAqi >= 150) {
+      const advisoryText = advisories[0]?.text || "Please take precautions.";
+      const message = `⚠️ AQI Alert for ${displayName}: The AQI has reached ${primaryAqi} (${aqiInfo.label}). ${advisoryText}`;
+      
+      // Simple debounce: only send if no recent alert (e.g., last 1 hour)
+      // For now, just send it
+      await sendSms(user.phoneNumber, message).catch((e) =>
+        console.error("Failed to send alert SMS:", e)
+      );
+    }
 
     return NextResponse.json(result);
   } catch (err) {

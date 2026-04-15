@@ -9,6 +9,7 @@ export default function SignupPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +21,7 @@ export default function SignupPage() {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, phoneNumber }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data?.error ?? "Signup failed");
@@ -72,6 +73,19 @@ export default function SignupPage() {
               autoComplete="new-password"
             />
             <p className="text-xs text-muted-foreground">Min 6 characters.</p>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-sm text-muted-foreground">Phone Number (Optional)</label>
+            <input
+              type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder="+1234567890"
+              className="w-full px-3 py-2.5 rounded-xl bg-[hsl(var(--input))] border border-[hsl(var(--border))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))]"
+              autoComplete="tel"
+            />
+            <p className="text-xs text-muted-foreground">For AQI alerts (e.g. +1234567890)</p>
           </div>
 
           <button

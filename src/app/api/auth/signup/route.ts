@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => null);
     const username = (body?.username ?? "").toString().trim();
     const password = (body?.password ?? "").toString();
+    const phoneNumber = (body?.phoneNumber ?? "").toString().trim();
 
     if (username.length < 3) {
       return NextResponse.json({ error: "Username must be at least 3 characters." }, { status: 400 });
@@ -21,18 +22,29 @@ export async function POST(req: NextRequest) {
     if (password.length < 6) {
       return NextResponse.json({ error: "Password must be at least 6 characters." }, { status: 400 });
     }
+    if (phoneNumber && !/^\+?[1-9]\d{1,14}$/.test(phoneNumber)) {
+      return NextResponse.json({ error: "Invalid phone number format. Use E.164 (e.g. +1234567890)" }, { status: 400 });
+    }
 
     const existing = await prisma.user.findUnique({ where: { username } });
     if (existing) {
       return NextResponse.json({ error: "Username already exists." }, { status: 409 });
     }
 
+    if (phoneNumber) {
+      const existingPhone = await prisma.user.findUnique({ where: { phoneNumber } });
+      if (existingPhone) {
+        return NextResponse.json({ error: "Phone number already in use." }, { status: 409 });
+      }
+    }
+
     const user = await prisma.user.create({
       data: {
         username,
         passwordHash: createPasswordHash(password),
+        phoneNumber: phoneNumber || null,
       },
-      select: { id: true, username: true, createdAt: true },
+      select: { id: true, username: true, createdAt: true, phoneNumber: true },
     });
 
     const token = newSessionToken();

@@ -55,8 +55,26 @@ model User {
   id           String    @id @default(cuid())
   username     String    @unique
   passwordHash String
+  phoneNumber  String?   @unique
   createdAt    DateTime  @default(now())
   sessions     Session[]
+  tracked      TrackedLocation[]
+}
+
+model TrackedLocation {
+  id          String   @id @default(cuid())
+  query       String
+  displayName String
+  lat         Float
+  lon         Float
+  threshold   Int      @default(150) // Default threshold for alerts (e.g., Unhealthy)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@unique([userId, lat, lon])
 }
 
 model Session {
