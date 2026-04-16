@@ -215,7 +215,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    if (user.phoneNumber && primaryAqi && primaryAqi >= 150) {
+    if (user.phoneNumber && primaryAqi && primaryAqi >= 50) {
       const advisoryText = advisories[0]?.text || "Please take precautions.";
       const message = `⚠️ AQI Alert for ${displayName}: The AQI has reached ${primaryAqi} (${aqiInfo.label}). ${advisoryText}`;
       

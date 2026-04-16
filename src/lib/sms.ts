@@ -4,8 +4,9 @@ import { env } from "./env";
 const client = twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
 
 export async function sendSms(to: string, body: string) {
+  console.log(`[SMS] Preparing to send to ${to}...`);
   if (!env.TWILIO_ACCOUNT_SID || !env.TWILIO_AUTH_TOKEN || !env.TWILIO_PHONE_NUMBER) {
-    console.warn("Twilio credentials missing. Skipping SMS send.");
+    console.warn(`[SMS] ❌ Twilio credentials missing: SID=${!!env.TWILIO_ACCOUNT_SID}, Token=${!!env.TWILIO_AUTH_TOKEN}, From=${!!env.TWILIO_PHONE_NUMBER}`);
     return;
   }
 
@@ -15,10 +16,10 @@ export async function sendSms(to: string, body: string) {
       from: env.TWILIO_PHONE_NUMBER,
       to,
     });
-    console.log(`SMS sent successfully to ${to}. Message SID: ${message.sid}`);
+    console.log(`[SMS] ✅ Message sent to ${to}. SID: ${message.sid}`);
     return message;
   } catch (error) {
-    console.error(`Failed to send SMS to ${to}:`, error);
+    console.error(`[SMS] ❌ Failed to send to ${to}:`, error);
     throw error;
   }
 }
