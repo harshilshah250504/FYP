@@ -7,12 +7,28 @@ import MapView from "@/components/MapView";
 import { Wind, BarChart3, Layers } from "lucide-react";
 import Link from "next/link";
 import { LogoutButton } from "@/components/LogoutButton";
+import { Bell } from "lucide-react";
 
 export default function Home() {
   const [result, setResult] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sendingAlert, setSendingAlert] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [alertDismissed, setAlertDismissed] = useState(false);
+
+  const handleSendManualAlert = async () => {
+    setSendingAlert(true);
+    try {
+      const res = await fetch("/api/alerts/manual", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to send alert");
+      alert("Test alert SMS sent successfully!");
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Failed to send alert");
+    } finally {
+      setSendingAlert(false);
+    }
+  };
 
   const handleSearch = async (
     q: string,
@@ -71,6 +87,14 @@ export default function Home() {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
+            <button
+              onClick={handleSendManualAlert}
+              disabled={sendingAlert}
+              className="flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 transition-all disabled:opacity-50"
+            >
+              <Bell className="w-4 h-4" />
+              {sendingAlert ? "Sending..." : "Send Test Alert"}
+            </button>
             <Link
               href="/insights"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
