@@ -82,8 +82,12 @@ End-to-end air quality intelligence system that analyzes AQI data, attributes po
 
 `Final_Year_Project.ipynb` contains exploratory analysis in addition to the web application. Notebook outputs have been cleared and API credentials are read from environment variables. Its forecasting and source-attribution experiments have not been independently validated. The web app and notebook are separate workflows.
 
-Historical commits have not been rewritten. Keep this repository private until previously embedded credentials have been revoked and repository history reviewed.
+The identified personal seed data, password hash, and tracked database files were removed from affected repository history before public release. Previously used credentials should still be rotated.
 
 ## Author
 
 Harshil Prashant Shah · [Portfolio](https://harshil-prashant-shah.vercel.app/)
+
+## Research reference
+
+[AQInsight manuscript](https://drive.google.com/file/d/1jRA-Yd8acJ9VW4yiHOxIWP4FD1hm4xkA/view) — project reference supplied by the author. Publisher or Drive access conditions may apply.
