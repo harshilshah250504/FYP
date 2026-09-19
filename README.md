@@ -1,26 +1,47 @@
-# AQInsights — Air Quality Intelligence System
+![AQInsight](assets/header.svg)
 
-End-to-end air quality intelligence system that analyzes AQI data, attributes pollution sources, and delivers personalized health risk assessments. Integrates historical and real-time AQI data with traffic, wildfire, and weather context.
+<div align="center">
 
-## Features
+**Weather, pollution, traffic, and wildfire context in one project.**
 
-- **Search by place or coordinates** — AQI, traffic, wildfire, pollutants for any location (India-focused, supports worldwide)
-- **Safety classification** — Safe / Moderate / Unsafe based on AQI
-- **Personalized health advisories** — By age group (children, adults, elderly) and health conditions (asthma, heart, lung, pregnancy)
-- **Data storage** — All API responses stored in SQLite for trend analysis
-- **K-Means clustering** — Region-specific pollution behavior discovery (Insights page)
-- **Optional GROQ LLM** — AI-generated health advisories when API key is set
+Next.js · TypeScript · Prisma · SQLite · Python
 
-## API Integrations
+[Portfolio](https://harshil-prashant-shah.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/harshilpshah/) · [Explore the code](#repository-guide)
 
-| Source | Purpose |
-|--------|---------|
-| OpenWeather | Geocoding, weather, air pollution |
-| Open-Meteo | Geocoding (India), air quality fallback |
-| NASA FIRMS | Wildfire detection |
-| WAQI | AQI and dominant pollutant |
-| TomTom | Traffic flow (optional) |
-| GROQ | LLM health advisories (optional) |
+</div>
+
+---
+
+## What this project explores
+
+A location-based air-quality application paired with an exploratory research notebook. It combines environmental API responses, geographic views, stored observations, and clustering experiments.
+
+## Application capabilities
+
+- Search by place or coordinates.
+- Display pollutant, weather, wildfire, and optional traffic context.
+- Store observations with Prisma and SQLite.
+- Explore clustering on the insights page.
+- Generate rule-based or optional LLM advisory text.
+
+The advisory and source-attribution outputs are prototype interpretations, not validated health assessments or causal measurements.
+
+## Two complementary components
+
+**Web application:** `src/` contains the Next.js interface and API routes.  
+**Research notebook:** `Final_Year_Project.ipynb` contains exploratory data preparation, visualization, clustering, and predictive experiments.
+
+```mermaid
+flowchart LR
+    A[Location search] --> B[Environmental APIs]
+    B --> C[Stored observations]
+    B --> D[Maps and summaries]
+    C --> E[Exploratory clustering]
+```
+
+## Repository guide
+
+The instructions below describe the default `master` branch. Additional branches contain separate development work.
 
 ## Setup
 
@@ -78,16 +99,22 @@ End-to-end air quality intelligence system that analyzes AQI data, attributes po
 - **TOMTOM_KEY** — Optional. Traffic data. [developer.tomtom.com](https://developer.tomtom.com/)
 - **GROQ_API_KEY** — Optional. LLM advisories. [console.groq.com](https://console.groq.com/)
 
-## Research notebook and verification
+## Verification and boundaries
 
-`Final_Year_Project.ipynb` contains exploratory analysis in addition to the web application. Notebook outputs have been cleared and API credentials are read from environment variables. Its forecasting and source-attribution experiments have not been independently validated. The web app and notebook are separate workflows.
+API availability and credentials affect live results. Forecasting and source-attribution experiments have not been independently reproduced. Simulated fallbacks must be distinguished from observed measurements.
 
-The identified personal seed data, password hash, and tracked database files were removed from affected repository history before public release. Previously used credentials should still be rotated.
+Notebook output cells were cleared and credential settings use environment variables. Identified personal seed data and tracked database files were removed from affected historical commits. Previously used credentials should still be rotated.
 
-## Author
+## Research
 
-Harshil Prashant Shah · [Portfolio](https://harshil-prashant-shah.vercel.app/)
+[Read the associated paper or manuscript](https://drive.google.com/file/d/1jRA-Yd8acJ9VW4yiHOxIWP4FD1hm4xkA/view). This reference was supplied by the author; publisher or Drive access conditions may apply. The paper and this repository may represent different project stages.
 
-## Research reference
+## About the author
 
-[AQInsight manuscript](https://drive.google.com/file/d/1jRA-Yd8acJ9VW4yiHOxIWP4FD1hm4xkA/view) — project reference supplied by the author. Publisher or Drive access conditions may apply.
+**Harshil Prashant Shah** · MS in Management Information Systems, Texas A&M University.
+
+[Portfolio](https://harshil-prashant-shah.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/harshilpshah/) · [GitHub](https://github.com/harshilshah250504)
+
+## Data and reuse
+
+Local datasets, credentials, and third-party research PDFs are not included. No blanket license is granted over third-party material. Refer to the original sources for their terms before redistributing data or publications.
