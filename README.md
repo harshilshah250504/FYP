@@ -30,8 +30,8 @@ End-to-end air quality intelligence system that analyzes AQI data, attributes po
    ```
 
 2. **Configure environment**
-   - Copy `.env.example` to `.env` (or edit `.env` which may already contain keys from the notebook)
-   - Add your API keys. Keys from `Final_Year_Project.ipynb` are pre-filled for OpenWeather, NASA FIRMS, WAQI, TomTom. Add `GROQ_API_KEY` for AI advisories.
+   - Copy `.env.example` to `.env` 
+   - Add your API keys. Use your own credentials; no keys are supplied. Add `GROQ_API_KEY` for AI advisories.
 
 3. **Initialize database**
    ```bash
@@ -77,3 +77,13 @@ End-to-end air quality intelligence system that analyzes AQI data, attributes po
 - **WAQI_TOKEN** — Optional. AQI source. [aqicn.org](https://aqicn.org/api/)
 - **TOMTOM_KEY** — Optional. Traffic data. [developer.tomtom.com](https://developer.tomtom.com/)
 - **GROQ_API_KEY** — Optional. LLM advisories. [console.groq.com](https://console.groq.com/)
+
+## Research notebook and verification
+
+`Final_Year_Project.ipynb` contains exploratory analysis in addition to the web application. Notebook outputs have been cleared and API credentials are read from environment variables. Its forecasting and source-attribution experiments have not been independently validated. The web app and notebook are separate workflows.
+
+Historical commits have not been rewritten. Keep this repository private until previously embedded credentials have been revoked and repository history reviewed.
+
+## Author
+
+Harshil Prashant Shah · [Portfolio](https://harshil-prashant-shah.vercel.app/)
