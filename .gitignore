@@ -6,3 +6,7 @@ prisma/**/*.db
 prisma/**/*.db-journal
 .DS_Store
 *.log
+
+# SQLite temporary files can contain private data
+*.db-wal
+*.db-shm

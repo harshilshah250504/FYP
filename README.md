@@ -118,3 +118,7 @@ Notebook output cells were cleared and credential settings use environment varia
 ## Data and reuse
 
 Local datasets, credentials, and third-party research PDFs are not included. No blanket license is granted over third-party material. Refer to the original sources for their terms before redistributing data or publications.
+
+## Build and deployment review
+
+See [validation and deployment status](VALIDATION.md). The source builds successfully, but its legacy framework has unresolved security advisories and is not ready for public application hosting.
